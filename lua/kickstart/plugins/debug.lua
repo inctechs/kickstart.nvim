@@ -42,6 +42,41 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'codelldb',
+      },
+    }
+
+    -- NOTE: config see: https://github.com/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb)
+    -- NOTE: defining absolut paths need vim.fn.expand to ensure path is absolute
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        -- CHANGE THIS to your path!
+        command = vim.fn.expand '~/.local/share/nvim/mason/packages/codelldb/extension/adapter/codelldb',
+        args = { '--port', '${port}' },
+
+        -- On windows you may have to uncomment this:
+        -- detached = false,
+      },
+    }
+
+    dap.configurations.cpp = {
+      {
+        name = 'Launch file',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+          -- return vim.fn.input('Path to foobar executable: ', vim.api.nvim_buf_get_name(0) .. '/', 'file')
+        end,
+        -- cwd = vim.fn.expand '${workspaceFolder}',
+        -- cwd = vim.fn.getcwd(),
+        cwd = function()
+          -- This will set the cwd to the directory of the current file
+          return vim.fn.expand '%:p:h'
+        end,
+        stopOnEntry = false,
       },
     }
 
@@ -61,20 +96,20 @@ return {
       -- Set icons to characters that are more likely to work in every terminal.
       --    Feel free to remove or use ones that you like more! :)
       --    Don't feel like these are good choices.
-      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-      controls = {
-        icons = {
-          pause = '⏸',
-          play = '▶',
-          step_into = '⏎',
-          step_over = '⏭',
-          step_out = '⏮',
-          step_back = 'b',
-          run_last = '▶▶',
-          terminate = '⏹',
-          disconnect = '⏏',
-        },
-      },
+      -- icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
+      -- controls = {
+      --   icons = {
+      --     pause = '⏸',
+      --     play = '▶',
+      --     step_into = '⏎',
+      --     step_over = '⏭',
+      --     step_out = '⏮',
+      --     step_back = 'b',
+      --     run_last = '▶▶',
+      --     terminate = '⏹',
+      --     disconnect = '⏏',
+      --   },
+      -- },
     }
 
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
