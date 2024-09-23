@@ -777,6 +777,7 @@ require('lazy').setup({
       -- Snippet Engine & its associated nvim-cmp source
       {
         'L3MON4D3/LuaSnip',
+        version = 'v2.*',
         build = (function()
           -- Build Step is needed for regex support in snippets.
           -- This step is not supported in many windows environments.
@@ -786,6 +787,39 @@ require('lazy').setup({
           end
           return 'make install_jsregexp'
         end)(),
+        config = function()
+          local ls = require 'luasnip'
+
+          -- Set LuaSnip configuration
+          ls.config.set_config {
+            -- Enable autotriggered snippets
+            enable_autosnippets = true,
+
+            -- Use Tab to trigger visual selection
+            store_selection_keys = '<Tab>',
+
+            -- Live updates for repeated nodes
+            update_events = 'TextChanged,TextChangedI',
+          }
+
+          -- LuaSnip trigger and navigation keys
+          vim.keymap.set({ 'i' }, '<C-K>', function()
+            ls.expand()
+          end, { silent = true })
+          vim.keymap.set({ 'i', 's' }, '<C-L>', function()
+            ls.jump(1)
+          end, { silent = true })
+          vim.keymap.set({ 'i', 's' }, '<C-J>', function()
+            ls.jump(-1)
+          end, { silent = true })
+
+          vim.keymap.set({ 'i', 's' }, '<C-E>', function()
+            if ls.choice_active() then
+              ls.change_choice(1)
+            end
+          end, { silent = true })
+          require('luasnip.loaders.from_lua').load { paths = '~/.config/nvim/LuaSnip/' }
+        end,
         dependencies = {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
@@ -810,7 +844,7 @@ require('lazy').setup({
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
-      luasnip.config.setup {}
+      -- luasnip.config.setup {}
 
       cmp.setup {
         snippet = {
