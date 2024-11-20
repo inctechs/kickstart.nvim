@@ -833,13 +833,13 @@ require('lazy').setup({
           }
 
           -- LuaSnip trigger and navigation keys
-          vim.keymap.set({ 'i' }, '<C-K>', function()
+          vim.keymap.set({ 'i' }, '<C-Y>', function()
             ls.expand()
           end, { silent = true })
-          vim.keymap.set({ 'i', 's' }, '<C-L>', function()
+          vim.keymap.set({ 'i', 's' }, '<C-N>', function()
             ls.jump(1)
           end, { silent = true })
-          vim.keymap.set({ 'i', 's' }, '<C-J>', function()
+          vim.keymap.set({ 'i', 's' }, '<C-P>', function()
             ls.jump(-1)
           end, { silent = true })
 
