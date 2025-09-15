@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mfussenegger/nvim-dap-python',
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
@@ -96,6 +97,8 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         -- 'delve',
         'codelldb',
+        'debugpy',
+        'python',
       },
     }
 
@@ -179,5 +182,23 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    -- Python specific config
+    local mason_path = vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/bin/python'
+    require('dap-python').setup(mason_path)
+
+    -- Extra config for attaching to a running Jupyter kernel (via debugpy.listen())
+    dap.configurations.python = dap.configurations.python or {}
+
+    table.insert(dap.configurations.python, {
+      type = 'python',
+      request = 'attach',
+      name = 'Attach to Jupyter notebook (debugpy)',
+      connect = {
+        host = '127.0.0.1',
+        port = 5678, -- must match the port you use in notebook's debugpy.listen()
+      },
+      justMyCode = false,
+    })
   end,
 }

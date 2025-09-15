@@ -7,11 +7,15 @@ return {
       'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
       'alfaix/neotest-gtest',
+      'nvim-neotest/neotest-python',
     },
     config = function()
       require('neotest').setup {
         adapters = {
           require('neotest-gtest').setup {},
+          require 'neotest-python' {
+            dap = { justMyCode = false },
+          },
         },
       }
       local nt = require 'neotest'
@@ -26,6 +30,7 @@ return {
         nt.run.run { vim.fn.expand '%', strategy = 'dap' }
       end, { desc = '[T]est [D]ebug [A]ll' })
       vim.keymap.set('n', '<leader>ts', nt.summary.open, { desc = 'Open [T]est [S]ummary' })
+      vim.keymap.set('n', '<leader>to', nt.output.open, { desc = 'Open [T]est [O]output' })
     end,
   },
 }
