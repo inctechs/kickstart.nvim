@@ -738,7 +738,17 @@ require('lazy').setup({
             },
           },
         },
-        ['ruff-lsp'] = {},
+        ruff = {
+          init_options = {
+            settings = {
+              args = {}, -- Optional: customize Ruff args
+            },
+          },
+          -- Optional: force offsetEncoding here if needed
+          capabilities = vim.tbl_deep_extend('force', {}, capabilities, {
+            offsetEncoding = { 'utf-16' },
+          }),
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -767,20 +777,20 @@ require('lazy').setup({
 
       -- Ensure that pyright is not used for diagnostics as linint but instead ruff is used
       -- Configure pyright without diagnostics
-      require('lspconfig').pyright.setup {
-        settings = {
-          pyright = {
-            -- Using Ruff's import organizer
-            disableOrganizeImports = true,
-          },
-          python = {
-            analysis = {
-              -- Ignore all files for analysis to exclusively use Ruff for linting
-              ignore = { '*' },
-            },
-          },
-        },
-      }
+      -- require('lspconfig').pyright.setup {
+      --   settings = {
+      --     pyright = {
+      --       -- Using Ruff's import organizer
+      --       disableOrganizeImports = true,
+      --     },
+      --     python = {
+      --       analysis = {
+      --         -- Ignore all files for analysis to exclusively use Ruff for linting
+      --         ignore = { '*' },
+      --       },
+      --     },
+      --   },
+      -- }
 
       -- Ensure the servers and tools above are installed
       --
@@ -798,7 +808,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'ruff',
+        -- 'ruff',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
