@@ -1,8 +1,14 @@
-return {
-  'iamcco/markdown-preview.nvim',
-  cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-  ft = { 'markdown' },
-  build = function()
-    vim.fn['mkdp#util#install']()
-  end,
-}
+-- markdown-preview requires a build step (mkdp#util#install).
+-- Add the following block to the PackChanged autocmd in Section 2 of your
+-- root init.lua:
+--
+--   if name == 'markdown-preview.nvim' then
+--     vim.fn['mkdp#util#install']()
+--     return
+--   end
+--
+-- The `cmd` and `ft` lazy-loading fields from the old lazy.nvim spec are not
+-- available in vim.pack. The plugin is small and loads fast, so eager loading
+-- is fine. The MarkdownPreview commands are only active when the filetype is
+-- 'markdown' anyway.
+vim.pack.add { 'https://github.com/iamcco/markdown-preview.nvim' }
