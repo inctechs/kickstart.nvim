@@ -11,9 +11,7 @@ local table_node = function(args)
     local iNode
     iNode = i(j)
     tabs[2 * j - 1] = iNode
-    if j ~= count then
-      tabs[2 * j] = t ' & '
-    end
+    if j ~= count then tabs[2 * j] = t ' & ' end
   end
   return sn(nil, tabs)
 end

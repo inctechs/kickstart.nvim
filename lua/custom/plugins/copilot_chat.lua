@@ -27,5 +27,5 @@ chat.setup {
   },
 }
 
-vim.keymap.set('n', '<leader>cc', function() chat.toggle() end,         { desc = 'CopilotChat - Toggle' })
-vim.keymap.set('n', '<leader>ca', function() chat.select_prompt() end,  { desc = 'CopilotChat - Prompt Actions' })
+vim.keymap.set('n', '<leader>cc', function() chat.toggle() end, { desc = 'CopilotChat - Toggle' })
+vim.keymap.set('n', '<leader>ca', function() chat.select_prompt() end, { desc = 'CopilotChat - Prompt Actions' })

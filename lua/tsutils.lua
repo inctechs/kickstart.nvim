@@ -25,15 +25,11 @@ local function get_node_at_cursor()
   local cursor_range = { cursor[1] - 1, cursor[2] }
   local buf = vim.api.nvim_get_current_buf()
   local ok, parser = pcall(ts.get_parser, buf, 'latex')
-  if not ok or not parser then
-    return
-  end
+  if not ok or not parser then return end
   local root_tree = parser:parse()[1]
   local root = root_tree and root_tree:root()
 
-  if not root then
-    return
-  end
+  if not root then return end
 
   return root:named_descendant_for_range(cursor_range[1], cursor_range[2], cursor_range[1], cursor_range[2])
 end
@@ -42,9 +38,7 @@ function M.in_comment()
   if has_treesitter then
     local node = get_node_at_cursor()
     while node do
-      if node:type() == 'comment' then
-        return true
-      end
+      if node:type() == 'comment' then return true end
       node = node:parent()
     end
     return false
@@ -62,9 +56,7 @@ function M.in_mathzone()
       elseif node:type() == 'math_environment' or node:type() == 'generic_environment' then
         local begin = node:child(0)
         local names = begin and begin:field 'name'
-        if names and names[1] and MATH_ENVIRONMENTS[ts.get_node_text(names[1], buf):match '[A-Za-z]+'] then
-          return true
-        end
+        if names and names[1] and MATH_ENVIRONMENTS[ts.get_node_text(names[1], buf):match '[A-Za-z]+'] then return true end
       end
       node = node:parent()
     end

@@ -19,11 +19,11 @@ vim.api.nvim_create_autocmd('VimEnter', {
     }
 
     local nt = require 'neotest'
-    vim.keymap.set('n', '<leader>tl',  nt.run.run, { desc = 'Run [T]est ([L]ocal)' })
-    vim.keymap.set('n', '<leader>ta',  function() nt.run.run(vim.fn.expand '%') end, { desc = 'Run [T]ests ([A]ll in file)' })
+    vim.keymap.set('n', '<leader>tl', nt.run.run, { desc = 'Run [T]est ([L]ocal)' })
+    vim.keymap.set('n', '<leader>ta', function() nt.run.run(vim.fn.expand '%') end, { desc = 'Run [T]ests ([A]ll in file)' })
     vim.keymap.set('n', '<leader>tdl', function() nt.run.run { strategy = 'dap' } end, { desc = '[T]est [D]ebug [L]ocal' })
     vim.keymap.set('n', '<leader>tda', function() nt.run.run { vim.fn.expand '%', strategy = 'dap' } end, { desc = '[T]est [D]ebug [A]ll' })
-    vim.keymap.set('n', '<leader>ts',  nt.summary.open, { desc = 'Open [T]est [S]ummary' })
-    vim.keymap.set('n', '<leader>to',  nt.output.open,  { desc = 'Open [T]est [O]utput' })
+    vim.keymap.set('n', '<leader>ts', nt.summary.open, { desc = 'Open [T]est [S]ummary' })
+    vim.keymap.set('n', '<leader>to', nt.output.open, { desc = 'Open [T]est [O]utput' })
   end,
 })

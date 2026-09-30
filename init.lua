@@ -252,7 +252,6 @@ do
 
   vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
-
   vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
   -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -369,7 +368,6 @@ do
         vim.fn['mkdp#util#install']()
         return
       end
-
     end,
   })
 end
@@ -549,10 +547,10 @@ do
 
   -- The plugin sets up the TmuxNavigate* commands itself.
   -- Override the Section-1 window keymaps to go through tmux:
-  vim.keymap.set('n', '<C-h>', '<cmd>TmuxNavigateLeft<CR>',     { desc = 'Move focus left (tmux-aware)' })
-  vim.keymap.set('n', '<C-j>', '<cmd>TmuxNavigateDown<CR>',     { desc = 'Move focus down (tmux-aware)' })
-  vim.keymap.set('n', '<C-k>', '<cmd>TmuxNavigateUp<CR>',       { desc = 'Move focus up (tmux-aware)' })
-  vim.keymap.set('n', '<C-l>', '<cmd>TmuxNavigateRight<CR>',    { desc = 'Move focus right (tmux-aware)' })
+  vim.keymap.set('n', '<C-h>', '<cmd>TmuxNavigateLeft<CR>', { desc = 'Move focus left (tmux-aware)' })
+  vim.keymap.set('n', '<C-j>', '<cmd>TmuxNavigateDown<CR>', { desc = 'Move focus down (tmux-aware)' })
+  vim.keymap.set('n', '<C-k>', '<cmd>TmuxNavigateUp<CR>', { desc = 'Move focus up (tmux-aware)' })
+  vim.keymap.set('n', '<C-l>', '<cmd>TmuxNavigateRight<CR>', { desc = 'Move focus right (tmux-aware)' })
   vim.keymap.set('n', '<C-\\>', '<cmd>TmuxNavigatePrevious<CR>', { desc = 'Move to previous pane (tmux-aware)' })
 end
 

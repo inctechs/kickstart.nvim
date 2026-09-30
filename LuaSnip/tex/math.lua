@@ -38,12 +38,8 @@ return {
       dscr = 'Auto subscript: typing x2 -> x_2',
     },
     fmta([[<>_<>]], {
-      f(function(_, snip)
-        return snip.captures[1]
-      end),
-      f(function(_, snip)
-        return snip.captures[2]
-      end),
+      f(function(_, snip) return snip.captures[1] end),
+      f(function(_, snip) return snip.captures[2] end),
     }),
     { condition = tsutils.in_mathzone }
   ),
@@ -55,39 +51,23 @@ return {
       dscr = 'Auto subscript: typing x12 -> x_{12}',
     },
     fmta([[<>_{<>}]], {
-      f(function(_, snip)
-        return snip.captures[1]
-      end),
-      f(function(_, snip)
-        return snip.captures[2]
-      end),
+      f(function(_, snip) return snip.captures[1] end),
+      f(function(_, snip) return snip.captures[2] end),
     }),
     { condition = tsutils.in_mathzone }
   ),
-  autosnippet(
-    {
-      trig = '(%a)+hat',
-      regTrig = true,
-      name = 'hat',
-      dscr = 'Replaces x+hat with \\hat{x}',
-    },
-    fmt([[\hat{<>}]], { f(function(_, snip)
-      return snip.captures[1]
-    end) }, { delimiters = '<>' }),
-    { condition = tsutils.in_mathzone }
-  ),
-  autosnippet(
-    {
-      trig = '(%a)+bar',
-      regTrig = true,
-      name = 'bar',
-      dscr = 'Replaces x+bar with \\overline{x}',
-    },
-    fmt([[\overline{<>}]], { f(function(_, snip)
-      return snip.captures[1]
-    end) }, { delimiters = '<>' }),
-    { condition = tsutils.in_mathzone }
-  ),
+  autosnippet({
+    trig = '(%a)+hat',
+    regTrig = true,
+    name = 'hat',
+    dscr = 'Replaces x+hat with \\hat{x}',
+  }, fmt([[\hat{<>}]], { f(function(_, snip) return snip.captures[1] end) }, { delimiters = '<>' }), { condition = tsutils.in_mathzone }),
+  autosnippet({
+    trig = '(%a)+bar',
+    regTrig = true,
+    name = 'bar',
+    dscr = 'Replaces x+bar with \\overline{x}',
+  }, fmt([[\overline{<>}]], { f(function(_, snip) return snip.captures[1] end) }, { delimiters = '<>' }), { condition = tsutils.in_mathzone }),
   autosnippet({ trig = '<=', name = 'Less equal' }, t '\\le', { condition = tsutils.in_mathzone }),
   autosnippet({ trig = '>=', name = 'Greater equal' }, t '\\ge', { condition = tsutils.in_mathzone }),
   autosnippet({ trig = '->', name = 'Right arrow' }, t '\\rightarrow', { condition = tsutils.in_mathzone }),
